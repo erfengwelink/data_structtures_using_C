@@ -9,8 +9,11 @@ etc.
 ## chapter 3 array
 examples seeing at codeds directory
 
-## chapter 4 
+## chapter 4 string
 
-## 
+## chapter 5 structures and unions
+
+
+
 
 
