@@ -19,6 +19,9 @@ page 177
 
 ## chapter 7 stacks
 
+'''
+waiting...
+'''
 
 
 
