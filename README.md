@@ -17,5 +17,9 @@ examples seeing at codeds directory
 
 page 177
 
+## chapter 7 stacks
+
+
+
 
 
