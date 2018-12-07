@@ -13,7 +13,9 @@ examples seeing at codeds directory
 
 ## chapter 5 structures and unions
 
+## chapter 6 linkedList
 
+page 177
 
 
 

@@ -7,8 +7,7 @@ typedef struct node
 {
     int data;
     struct node *next;
-}node_t;
-
+} node_t;
 
 node_t *start = NULL;
 node_t *create_ll(node_t *node)
@@ -18,30 +17,32 @@ node_t *create_ll(node_t *node)
     printf("\n Enter -1 to end");
     printf("\n Enter the data:");
     scanf("%d", &num);
-    while(-1 != num)
+    while (-1 != num)
     {
-        new_node = (node_t*)malloc(sizeof(node_t));
+        new_node = (node_t *)malloc(sizeof(node_t));
         new_node->data = num;
-        if(NULL == node)
+        if (NULL == node)
         {
             new_node->next = NULL;
             node = new_node;
-            printf("NULL\n");
+            //printf("NULL\n");
         }
         else
         {
             ptr = node;
-            while(ptr->next!=NULL)
+            while (ptr->next != NULL)
             {
                 ptr = ptr->next;
             }
             ptr->next = new_node;
             new_node->next = NULL;
-            printf("certain\n");
+            //printf("certain\n");
         }
         printf("\n Enter the data:");
         scanf("%d", &num);
     }
+
+#if 0
     if(node)
         printf("\t %d", node->data);
     ptr = node;
@@ -50,6 +51,8 @@ node_t *create_ll(node_t *node)
         printf("\t %d", ptr->data);
         ptr = ptr->next;
     }
+#endif
+
     return node;
 }
 
@@ -57,11 +60,11 @@ node_t *display(node_t *node)
 {
     node_t *ptr;
     ptr = node;
-    if(ptr)
+    if (ptr)
     {
-        
+
         //printf("\n %d", node->data);
-        while(NULL!=ptr)
+        while (NULL != ptr)
         {
             printf("%d \t", ptr->data);
             ptr = ptr->next;
@@ -73,26 +76,124 @@ node_t *display(node_t *node)
 
 node_t *insert_beg(node_t *node)
 {
-
-    return node;
+    int num;
+    node_t *new_node, *ptr = NULL;
+    ptr = node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    printf("\n Enter the num(data) you want to insert at begin : ");
+    scanf("%d", &num);
+    new_node->data = num;
+    new_node->next = node;
+    return new_node;
 }
 
 node_t *insert_end(node_t *node)
 {
-
+    int num;
+    node_t *new_node, *ptr = NULL;
+    ptr = node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    printf("\n Enter the num(data) you want to insert at end : ");
+    scanf("%d", &num);
+    new_node->data = num;
+    while (ptr->next)
+    {
+        ptr = ptr->next;
+    }
+    ptr->next = new_node;
     return node;
 }
 
 node_t *insert_before(node_t *node)
 {
+    int num, val;
+    node_t *ptr, *bfr, *new_node;
+    ptr = node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    printf("\n Enter the num(data) you want to insert before certain value : ");
+    scanf("%d", &num);
+    new_node->data = num;
 
+    printf("\n Enter the certain value : ");
+    scanf("%d", &val);
+
+    if(ptr->next == NULL)
+    {
+        printf("\n There are only one node in LL.");
+        if(val == ptr->data)
+        {
+            printf("\n There are only one node in LL. insert OK!");
+            new_node->next = node;
+            return new_node;
+        }else{
+            printf("\n Cannot found the matched data value return;");
+            return node;
+        }
+        
+    }
+
+    while (ptr->data != val)
+    {
+        bfr = ptr;
+        ptr = ptr->next;
+    }
+    bfr->next = new_node;
+    new_node->next = ptr;
     return node;
 }
 
 node_t *insert_after(node_t *node)
 {
+    int num, val;
+    node_t *ptr, *new_node;
+    ptr = node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    printf("\n Enter the num(data) you want to insert after the certain value : ");
+    scanf("%d", &num);
+    new_node->data = num;
 
-    return node;
+    printf("\n Enter the certain value : ");
+    scanf("%d", &val);
+
+    if(ptr->next == NULL)
+    {
+        printf("\n There are only one node in LL.");
+        if(val == ptr->data)
+        {
+            printf("\n There are only one node in LL. insert OK!");
+            new_node->next = NULL;
+            node->next = new_node;
+            return node;
+        }else{
+            printf("\n Cannot found the matched data value return;");
+            return node;
+        }
+        
+    }
+
+    while (ptr->data != val)
+    {
+        ptr = ptr->next;
+    }
+    printf("\n Data:%d", ptr->data);
+
+    new_node->next = ptr->next;
+    ptr->next = new_node;
+
+    /*
+    if(NULL == tar)
+    {
+        printf("\n Cannot found the matched data value \
+        in LinkedList  return;");
+        return node;
+    }else{
+        tar->next = new_node;
+        new_node->next = tar;
+        printf("\n After insert OK!!!");
+        return node;
+    }
+    */
+   return node;
 }
 
 node_t *delete_beg(node_t *node)
@@ -133,7 +234,8 @@ node_t *sort_list(node_t *node)
 int main()
 {
     int option;
-    do{
+    do
+    {
 
         printf("\n\n ********* Main Menu **********");
         printf("\n 1: Create a list");
@@ -151,56 +253,54 @@ int main()
         printf("\n 13: EXIT");
         printf("\n Enter your option : ");
         scanf("%d", &option);
-        switch(option)
+        switch (option)
         {
-            case 1:
-                start = create_ll(start);
-                printf("\n LINKED LIST CREATED");
+        case 1:
+            start = create_ll(start);
+            printf("\n LINKED LIST CREATED");
             break;
-            case 2:
-                start = display(start);
+        case 2:
+            start = display(start);
             break;
-            case 3:
-                start = insert_beg(start);
+        case 3:
+            start = insert_beg(start);
             break;
-            case 4:
-                start = insert_end(start);
+        case 4:
+            start = insert_end(start);
             break;
-            case 5:
-                start = insert_before(start);
+        case 5:
+            start = insert_before(start);
             break;
-            case 6:
-                start = insert_after(start);
+        case 6:
+            start = insert_after(start);
             break;
-            case 7:
-                start = delete_beg(start);
+        case 7:
+            start = delete_beg(start);
             break;
-            case 8:
-                start = delete_end(start);
+        case 8:
+            start = delete_end(start);
             break;
-            case 9:
-                start = delete_node(start);
+        case 9:
+            start = delete_node(start);
             break;
-            case 10:
-                start = delete_after(start);
+        case 10:
+            start = delete_after(start);
             break;
-            case 11:
-                start = delete_list(start);
+        case 11:
+            start = delete_list(start);
             break;
-            case 12:
-                start = sort_list(start);
+        case 12:
+            start = sort_list(start);
             break;
-            default:
+        default:
 
             break;
-
         }
 
-    }while(13 != option);
+    } while (13 != option);
     //getch();
     //printf("\n Marks: %d", stud.marks);
     return 0;
 }
 
 #endif
-
