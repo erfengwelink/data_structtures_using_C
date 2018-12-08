@@ -62,8 +62,6 @@ node_t *display(node_t *node)
     ptr = node;
     if (ptr)
     {
-
-        //printf("\n %d", node->data);
         while (NULL != ptr)
         {
             printf("%d \t", ptr->data);
@@ -117,19 +115,20 @@ node_t *insert_before(node_t *node)
     printf("\n Enter the certain value : ");
     scanf("%d", &val);
 
-    if(ptr->next == NULL)
+    if (ptr->next == NULL)
     {
         printf("\n There are only one node in LL.");
-        if(val == ptr->data)
+        if (val == ptr->data)
         {
             printf("\n There are only one node in LL. insert OK!");
             new_node->next = node;
             return new_node;
-        }else{
+        }
+        else
+        {
             printf("\n Cannot found the matched data value return;");
             return node;
         }
-        
     }
 
     while (ptr->data != val)
@@ -155,20 +154,21 @@ node_t *insert_after(node_t *node)
     printf("\n Enter the certain value : ");
     scanf("%d", &val);
 
-    if(ptr->next == NULL)
+    if (ptr->next == NULL)
     {
         printf("\n There are only one node in LL.");
-        if(val == ptr->data)
+        if (val == ptr->data)
         {
             printf("\n There are only one node in LL. insert OK!");
             new_node->next = NULL;
             node->next = new_node;
             return node;
-        }else{
+        }
+        else
+        {
             printf("\n Cannot found the matched data value return;");
             return node;
         }
-        
     }
 
     while (ptr->data != val)
@@ -180,54 +180,161 @@ node_t *insert_after(node_t *node)
     new_node->next = ptr->next;
     ptr->next = new_node;
 
-    /*
-    if(NULL == tar)
-    {
-        printf("\n Cannot found the matched data value \
-        in LinkedList  return;");
-        return node;
-    }else{
-        tar->next = new_node;
-        new_node->next = tar;
-        printf("\n After insert OK!!!");
-        return node;
-    }
-    */
-   return node;
+    return node;
 }
 
 node_t *delete_beg(node_t *node)
 {
-
+    node_t *ptr = NULL;
+    ptr = node;
+    //printf("\n Just to delete at begin : ");
+    node = node->next;
+    ptr->next = NULL;
+    free(ptr);
     return node;
 }
 
 node_t *delete_end(node_t *node)
 {
-
+    node_t *new_node, *ptr = NULL;
+    ptr = node;
+    printf("\n Just to delete at end : ");
+    while (ptr->next != NULL)
+    {
+        new_node = ptr;
+        ptr = ptr->next;
+    }
+    new_node->next = NULL;
+    free(ptr);
     return node;
 }
 
 node_t *delete_node(node_t *node)
 {
+    int val;
+    node_t *new_node, *ptr = NULL;
+    ptr = node;
+
+    printf("\n Enter the certain value : ");
+    scanf("%d", &val);
+    if (ptr->data == val)
+    {
+        return delete_beg(node);
+    }
+    else
+    {
+        while (ptr->data != val && ptr->next)
+        {
+            new_node = ptr;
+            ptr = ptr->next;
+        }
+        if (ptr->data == val)
+        {
+            new_node->next = ptr->next;
+            ptr->next = NULL;
+            free(ptr);
+        }
+        else
+        {
+            printf("\n Cannot found the certain value !");
+        }
+    }
 
     return node;
 }
 
 node_t *delete_after(node_t *node)
 {
+    int val;
+    node_t *new_node, *ptr = NULL;
+    ptr = node;
+
+    printf("\n Enter the certain value that you want to delete after it: ");
+    scanf("%d", &val);
+    if (ptr->data == val)
+    {
+        new_node = ptr->next;
+        ptr->next = new_node->next;
+        new_node->next = NULL;
+        free(new_node);
+    }
+    else
+    {
+        while (ptr->data != val && ptr->next)
+        {
+            ptr = ptr->next;
+        }
+        if (val == ptr->data)
+        {
+            new_node = ptr->next;
+            ptr->next = new_node->next;
+            new_node->next = NULL;
+            free(new_node);
+        }
+        else
+        {
+            printf("\n Cannot found the certain value !");
+        }
+    }
     return node;
 }
 
+#if 0
 node_t *delete_list(node_t *node)
 {
-
+    node_t *ptr = NULL;
+    ptr = node;
+    while (ptr->next != NULL)
+    {
+        printf("\n <Deleting the node of value:%d ... ptr:%s", \
+        ptr->data, ptr==NULL?"NULL":"!NULL");
+        node = delete_beg(ptr);
+        // if(ptr->next)
+        // {
+            ptr = ptr->next;
+            printf("\n >Deleting the node of value:%d ... ptr:%s", \
+            ptr->data, ptr==NULL?"NULL":"!NULL");
+        // }
+    }
     return node;
+}
+#endif
+// error ????
+node_t *delete_list(node_t *start)
+{
+    node_t *ptr;
+    ptr = start;
+    while(ptr->next != NULL)
+    {
+        printf("\n %d is to be deleted next", ptr->data);
+        start = delete_beg(ptr);
+        ptr = ptr->next;
+    }
+    return start;
 }
 
 node_t *sort_list(node_t *node)
 {
+    node_t *ptr1 = NULL, *ptr2 = NULL;
+    int temp;
 
+    ptr1 = node;
+    printf("\n Sorting the list...");
+    while (ptr1->next != NULL)
+    {
+        ptr2 = ptr1->next;
+        while (ptr2 != NULL)
+        {
+            if (ptr1->data > ptr2->data)
+            {
+                temp = ptr2->data;
+                ptr2->data = ptr1->data;
+                ptr1->data = temp;
+            }
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
     return node;
 }
 
