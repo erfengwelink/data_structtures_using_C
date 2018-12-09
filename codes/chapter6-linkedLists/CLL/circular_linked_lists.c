@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #if 1
 
-typedef struct node{
+typedef struct node
+{
     int data;
     struct node *next;
-}node_t;
+} node_t;
 
 node_t *start = NULL;
 
-node_t *create_cll(node_t* node)
+node_t *create_cll(node_t *node)
 {
     node_t *ptr, *new_node;
     int num;
@@ -45,52 +45,174 @@ node_t *create_cll(node_t* node)
     return node;
 }
 
-node_t *display(node_t* node)
+node_t *display(node_t *node)
 {
-    printf("\ Display:\n");
+    printf("\n Display:\n");
     node_t *ptr;
     ptr = node;
-    while(ptr->next != node)
+    if (ptr == NULL)
     {
-        printf("\t%d", ptr->data);
+        printf("\n CLL is NULL");
+        return node;
+    }
+    while (ptr->next != node)
+    {
+        printf("%d\t", ptr->data);
         ptr = ptr->next;
+    }
+    printf("%d\t", ptr->data);
+
+    return node;
+}
+
+node_t *insert_beg(node_t *node)
+{
+    int num;
+    node_t *ptr, *new_node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    ptr = node;
+    printf("\n Enter the value you want to add at the beginning of CLL:");
+    scanf("%d", &num);
+    new_node->data = num;
+    if (ptr)
+    {
+        while (ptr->next != node)
+        {
+            ptr = ptr->next;
+        }
+        new_node->next = node;
+        ptr->next = new_node;
+    }
+    else
+    { /* for NULL node linkedList */
+        node = new_node;
+        new_node->next = new_node;
+    }
+    return new_node; //diff
+}
+
+node_t *insert_end(node_t *node)
+{
+    int num;
+    node_t *ptr, *new_node;
+    new_node = (node_t *)malloc(sizeof(node_t));
+    ptr = node;
+    printf("\n Enter the value you want to add at the end of CLL:");
+    scanf("%d", &num);
+    new_node->data = num;
+    if (ptr)
+    {
+        while (ptr->next != node)
+        {
+            ptr = ptr->next;
+        }
+        ptr->next = new_node;
+        new_node->next = node;
+    }
+    else
+    { /* for NULL node linkedList */
+        node = new_node;
+        new_node->next = new_node;
+    }
+    return node; //diff
+}
+
+#if 0
+node_t *delete_beg(node_t* node)
+{
+    node_t *ptr, *new_node, *start;
+    start = node;
+    ptr = node;
+    if(ptr)
+    {
+        if(ptr->next == node)
+        {
+            printf("\n CLL is only one node deleting...");
+            ptr->next = NULL;
+            //free(ptr);
+        }else{
+            new_node = ptr->next;
+            while(ptr->next != node)
+            {
+                ptr = ptr->next;
+            }
+            
+            ptr->next = NULL;
+            printf("\n CLL is not only one node deleting %d ...", start->data);
+            free(start);
+            ptr->next = new_node;
+            node = new_node;
+        }
+        
+    }else{
+        printf("\n CLL is already NULL!");
+    }
+    return node;
+}
+#endif
+node_t *delete_beg(node_t *node)
+{
+    node_t *ptr;
+    ptr = node;
+    while (ptr->next != node)
+    {
+        ptr = ptr->next;
+    }
+    ptr->next = node->next;
+    free(node);
+    node = ptr->next;
+    return node;
+}
+
+node_t *delete_end(node_t *node)
+{
+    node_t *ptr, *bef;
+    ptr = node;
+    while (ptr->next != node)
+    {
+        bef = ptr;
+        ptr = ptr->next;
+    }
+    bef->next = node;
+    free(ptr);
+    //node = ptr->next;
+    return node;
+}
+
+node_t *delete_after(node_t *node)
+{
+    node_t *ptr, *aft;
+    ptr = node;
+    int num;
+    printf("\n Enter the num in the CLL:");
+    scanf("%d", &num);
+    while (ptr->next != node && ptr->data != num)
+    {
+        ptr = ptr->next;
+    }
+    aft = ptr->next;
+    printf("\n aft->data %d", aft->data);
+    if(aft == node)
+    {
+        ptr->next = node->next;
+        free(node);
+        node = node->next;
+    }else{
+        ptr->next = aft->next;
+        free(aft);
     }
     return node;
 }
 
-node_t *insert_beg(node_t* node)
+node_t *delete_list(node_t *node)
 {
-
-    return node;
-}
-
-node_t *insert_end(node_t* node)
-{
-
-    return node;
-}
-
-node_t *delete_beg(node_t* node)
-{
-
-    return node;
-}
-
-node_t *delete_end(node_t* node)
-{
-
-    return node;
-}
-
-node_t *delete_after(node_t* node)
-{
-
-    return node;
-}
-
-node_t *delete_list(node_t* node)
-{
-
+    node_t *ptr;
+    ptr = node;
+    while (ptr->next != node)
+    {
+        node = delete_end(node);
+    }
+    free(node);
     return node;
 }
 
@@ -105,7 +227,7 @@ int main()
         printf("\n 2: Display the list");
         printf("\n 3: Add a node at the beginning");
         printf("\n 4: Add a node at the end");
- 
+
         printf("\n 5: Delete a node from the beginning");
         printf("\n 6: Delete a node from the end");
 
