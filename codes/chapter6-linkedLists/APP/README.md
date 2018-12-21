@@ -16,3 +16,6 @@ Every term of a polynomial can be represented as a node of the linked list. foll
 
 Now that we know how polynomials are represented using nodes of a linked list, let us write a program to perform operations on polynomials.
 
+# Example
+Write a program to store a polynomial using linked list. Also, perform addition and subtraction on two polynomials.
+(details seeing at applications_of_lists.c)
