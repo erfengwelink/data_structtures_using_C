@@ -1,6 +1,7 @@
 # Stack
 
 A stack supports 3 basic operations:
+
 1> push
 
     +------+------+------+------+------+------+------+------+------+
